@@ -53,10 +53,12 @@ class App extends Component {
     }
 
     await API.graphql(graphqlOperation(CreateIncident, incident))
-    
+
     this.setState({
       status: 'Waiting for a rescuer...'
     })
+
+    API.get('usirestapi', '/places')
   }
 
   async componentDidMount() {
