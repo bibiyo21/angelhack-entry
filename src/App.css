@@ -31,3 +31,53 @@
     transform: rotate(360deg);
   }
 }
+
+
+/* hackathon style*/
+html,
+body {
+  height: 100%;
+}
+
+.main-container {
+  background: #bbbbbb;
+  height: 100vh;
+
+  display: -ms-flexbox;
+  /* display: flex; */
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.form-signin {
+  width: 100%;
+  max-width: 420px;
+  padding: 15px;
+  margin: auto;
+}
+
+/* Fallback for Edge
+-------------------------------------------------- */
+@supports (-ms-ime-align: auto) {
+  .form-label-group > label {
+    display: none;
+  }
+  .form-label-group input::-ms-input-placeholder {
+    color: #777;
+  }
+}
+
+/* Fallback for IE
+-------------------------------------------------- */
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .form-label-group > label {
+    display: none;
+  }
+  .form-label-group input:-ms-input-placeholder {
+    color: #777;
+  }
+}
+
+.logout-btn {
+  bottom: 0;
+}

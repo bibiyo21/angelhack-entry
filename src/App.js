@@ -1,26 +1,40 @@
-import React from 'react';
+import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { Container, Button, Col, Row } from 'react-bootstrap';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import { withAuthenticator } from 'aws-amplify-react';
+import Amplify, { Auth } from 'aws-amplify';
+import awsconfig from './aws-exports';
+Amplify.configure(awsconfig);
+
+class App extends Component {
+
+  signOut() {
+    Auth.signOut();
+  }
+
+  notifyHospital() {
+    console.log(this.state.status)
+  }
+
+  render() {
+    return (
+      <div className="main-container">
+        <Container className="form-signin">
+          <div class="text-center mb-4">
+            <Button variant="warning" size="lg" onClick={this.notifyHospital}>There is an Accident!</Button>
+            {this.state.status}
+          </div>
+          <div className="logout-btn position-absolute mb-4" >
+            <Button variant="light" onClick={this.signOut}> Logout</Button>
+          </div>
+        </Container>
+        
+        
+      </div>
+    );
+  }
 }
 
-export default App;
+export default withAuthenticator(App);
