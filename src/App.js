@@ -9,22 +9,28 @@ import awsconfig from './aws-exports';
 Amplify.configure(awsconfig);
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    // this.props.status = '';
+    this.notifyHospital = this.notifyHospital.bind(this);
+  }
 
   signOut() {
     Auth.signOut();
   }
 
   notifyHospital() {
-    console.log(this.state.status)
+    // this.props.status = 'wewe'
+    // console.log(this.props.status)
   }
 
   render() {
     return (
       <div className="main-container">
         <Container className="form-signin">
-          <div class="text-center mb-4">
+          <div className="text-center mb-4">
             <Button variant="warning" size="lg" onClick={this.notifyHospital}>There is an Accident!</Button>
-            {this.state.status}
+            {/* {this.state.status} */}
           </div>
           <div className="logout-btn position-absolute mb-4" >
             <Button variant="light" onClick={this.signOut}> Logout</Button>
