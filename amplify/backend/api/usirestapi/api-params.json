@@ -1,0 +1,34 @@
+{
+    "paths": [
+        {
+            "name": "/places",
+            "lambdaFunction": "usirestapi",
+            "privacy": {
+                "open": true
+            }
+        }
+    ],
+    "resourceName": "usirestapi",
+    "apiName": "usirestapi",
+    "functionArns": [
+        {
+            "lambdaFunction": "usirestapi"
+        }
+    ],
+    "privacy": {
+        "auth": 0,
+        "unauth": 0,
+        "authRoleName": "angelhack-entry-dev-20190713144621-authRole",
+        "unAuthRoleName": "angelhack-entry-dev-20190713144621-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "usirestapi",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}
