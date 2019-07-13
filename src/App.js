@@ -6,7 +6,6 @@ import location from "geolocation"
 import { withAuthenticator } from 'aws-amplify-react';
 import Amplify, { Auth, API, graphqlOperation } from 'aws-amplify';
 import awsconfig from './aws-exports';
-import { async } from 'q';
 Amplify.configure(awsconfig);
 
 class App extends Component {
@@ -16,9 +15,13 @@ class App extends Component {
       this.state.location = position
     });
 
-    this.state = {status :''};
+    this.state = {
+      status :'',
+      places : [],
+      nearByLabel: ''
+    };
     
-    this.notifyHospitals = this.notifyHospitals.bind(this)
+    this.notifyHospitals = this.notifyHospitals.bind(this);
   }
 
   signOut() {
@@ -26,6 +29,8 @@ class App extends Component {
   }
 
   notifyHospitals = async() => {
+    let lat = this.state.location.coords.latitude;
+    let long = this.state.location.coords.longitude;
     const CreateIncident = `
       mutation($location: String!, $status: String, $reporter: String, $rescuer: String, $date_reported: String) {
         createIncident(input: {
@@ -40,7 +45,7 @@ class App extends Component {
       }`;
 
     const incident = {
-      location : JSON.stringify({lat: this.state.location.coords.latitude, long: this.state.location.coords.longitude}),
+      location : JSON.stringify({lat: lat, long: long}),
       reporter : 'bibiyo',
       rescuer: 'none',
       date_reported: new Date().toString(),
@@ -75,13 +80,22 @@ class App extends Component {
   render() {
     return (
       <div className="main-container">
-        <Container className="form-signin">
+        <Container className="form-signin py-5">
           <div className="text-center mb-4">
-            <Button variant="warning" size="lg" onClick={this.notifyHospitals}>There is an Accident!</Button>
+            <Button variant="warning" size="lg" onClick={this.notifyHospitals}>
+              <strong>
+              There is an Accident!
+              </strong>
+            </Button>
             <h5>{this.state.status}</h5>
-
-            <Table>
-            </Table>
+            <strong>{this.state.nearByLabel}</strong>
+            <ul className="list-unstyled">
+              {
+                this.state.places.map( (data) => {
+                  return(<li ><i className="spinner-grow text-primary"></i> data</li>)
+                })
+              }
+            </ul>
           </div>
 
           

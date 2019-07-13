@@ -13,6 +13,9 @@
         "categories": {
             "auth": {
                 "angelhackentry7e8c5135": {}
+            },
+            "function": {
+                "usirestapi": {}
             }
         }
     }
