@@ -97,8 +97,8 @@ class App extends Component {
             <strong>{this.state.nearByLabel}</strong>
             <ul className="list-unstyled text-justify">
               {
-                this.state.places.map( (data) => 
-                  (<li ><i className="spinner-grow text-primary"></i> {data}</li>)
+                this.state.places.map( (data,index) => 
+                  (<li key={index}><i className="spinner-grow text-primary"></i> {data}</li>)
                 )
               }
             </ul>
