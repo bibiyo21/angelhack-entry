@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Container, Button, Table } from 'react-bootstrap';
+import { Container, Button } from 'react-bootstrap';
 import location from "geolocation"
 
 import { withAuthenticator } from 'aws-amplify-react';
@@ -54,11 +54,15 @@ class App extends Component {
 
     await API.graphql(graphqlOperation(CreateIncident, incident))
 
-    this.setState({
-      status: 'Waiting for a rescuer...'
-    })
+    await API.get('usirestapi', '/places').then(response => {
+      this.setState({
+        status: 'Waiting for a rescuer...',
+        places: response.success,
+        nearByLabel: 'Hospital Nearby'
+      })
+    });
 
-    API.get('usirestapi', '/places')
+    
   }
 
   async componentDidMount() {
@@ -89,13 +93,13 @@ class App extends Component {
               There is an Accident!
               </strong>
             </Button>
-            <h5>{this.state.status}</h5>
+            <h5 className="py-2">{this.state.status}</h5>
             <strong>{this.state.nearByLabel}</strong>
-            <ul className="list-unstyled">
+            <ul className="list-unstyled text-justify">
               {
-                this.state.places.map( (data) => {
-                  return(<li ><i className="spinner-grow text-primary"></i> data</li>)
-                })
+                this.state.places.map( (data) => 
+                  (<li ><i className="spinner-grow text-primary"></i> {data}</li>)
+                )
               }
             </ul>
           </div>

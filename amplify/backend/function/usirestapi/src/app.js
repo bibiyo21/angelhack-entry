@@ -19,10 +19,6 @@ Amplify Params - DO NOT EDIT */
 var express = require('express')
 var bodyParser = require('body-parser')
 var awsServerlessExpressMiddleware = require('aws-serverless-express/middleware')
-const Places = require("google-places-web").default;
-
-Places.apiKey = "<API_KEY>";
-Places.debug = __DEV__;
 
 // declare a new express app
 var app = express()
@@ -42,18 +38,7 @@ app.use(function(req, res, next) {
  **********************/
 
 app.get('/places', function(req, res) {
-  Places.nearbysearch({
-    location: "-37.814,144.96332", // LatLon delimited by ,
-    // radius: "500",  // Radius cannot be used if rankBy set to DISTANCE
-    type: [], // Undefined type will return all types
-    rankby: "distance" // See google docs for different possible values
-  })
-    .then(result => {
-      res.json({success: result, url: req.url});
-    })
-    .catch(e => console.log(e));
-
-  
+  res.json({success: ['Makati Medical Center', 'St. Lukes Hospital', 'Paranaque Doctor Hospital'], url: req.url});
 });
 
 app.get('/places/*', function(req, res) {
